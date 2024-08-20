@@ -29,7 +29,7 @@ const route = useRoute();
 const gupStore = useGupDataStore();
 const { publication } = storeToRefs(gupStore);
 const { fetchPublication, createNewPublication } = gupStore;
-let previousType = null;
+let previousType = null; // used to store previous type when changing type to be able to reset it
 if (route.params.publication_id !== "new") {
   // fetch existing publication
   await fetchPublication(route.params.publication_id);
@@ -45,7 +45,7 @@ if (route.params.publication_id !== "new") {
   await createNewPublication(newPublication);
 }
 const showTypeSelector = computed(() => {
-  // show type selector if publication type is not set
+  // show type selector if publication type is not set (ie null)
   return publication?.value?.publication_type_id === null ? true : false;
 });
 </script>
