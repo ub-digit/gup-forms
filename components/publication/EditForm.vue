@@ -1,9 +1,9 @@
 <template>
   <div>
     <button @click="$emit('changeType')">Byt publikationstyp</button>
-
-    <h2>Formulär</h2>
-    <div></div>
+    <div>
+      <FormKitSchema :schema="publicationTypeSchema" />
+    </div>
 
     <div>
       <pre>
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormError, FormSubmitEvent } from "#ui/types";
+import { FormKitSchema } from "@formkit/vue";
 import { storeToRefs } from "pinia";
 import { z } from "zod";
 import { useGupDataStore } from "~/stores/gup_data";
@@ -40,7 +40,6 @@ const emit = defineEmits({
 });
 
 const { publication } = storeToRefs(gupStore);
-const { fetchPublication } = gupStore;
 
 const { publicationType } = storeToRefs(gupStore);
 const { fetchPublicationType } = gupStore;
@@ -48,6 +47,11 @@ const { fetchPublicationType } = gupStore;
 if (publication.value.publication_type_id !== null) {
   await fetchPublicationType(publication.value.publication_type_id);
 }
+
+const publicationTypeSchema = computed(() => {
+  console.log(publicationType.value.schema);
+  return publicationType.value.schema;
+});
 </script>
 
 <style lang="scss" scoped></style>
