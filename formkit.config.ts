@@ -1,3 +1,4 @@
+import { FormKit } from "./.nuxt/components.d";
 import { defineFormKitConfig } from "@formkit/vue";
 import { createProPlugin, rating, toggle, repeater } from "@formkit/pro";
 

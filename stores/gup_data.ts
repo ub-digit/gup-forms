@@ -9,7 +9,7 @@ import {
   zPublicationArray,
   type Publication,
 } from "~/types/publication";
-import type { Ref } from "vue";
+import { ReactiveEffect, type Ref } from "vue";
 
 export const useGupDataStore = defineStore("gupDataStore", () => {
   const publications: Ref<Publication[]> = ref([]);

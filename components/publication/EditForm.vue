@@ -1,8 +1,32 @@
 <template>
   <div>
     <button @click="$emit('changeType')">Byt publikationstyp</button>
+    <div>{{ publicationType?.name }} - {{ publicationType?.description }}</div>
+    <br />
+
+    <br />
+
+    <!--     <div>
+      <FormKit
+        type="form"
+        #default="{ value }"
+        :actions="false"
+        v-model="simpleData"
+      >
+        <FormKitSchema :schema="simpleSchema" />
+      </FormKit>
+      <pre wrap> {{ simpleData }}</pre>
+    </div> -->
+
     <div>
-      <FormKitSchema :schema="publicationTypeSchema" />
+      <FormKit
+        #default="{ value }"
+        type="form"
+        :actions="false"
+        v-model="publication"
+      >
+        <FormKitSchema :schema="publicationTypeSchema" />
+      </FormKit>
     </div>
 
     <div>
@@ -25,7 +49,7 @@ import { storeToRefs } from "pinia";
 import { z } from "zod";
 import { useGupDataStore } from "~/stores/gup_data";
 import { type Publication } from "~/types/publication";
-import type { publicationType } from "~/types/publicationType";
+import type { PublicationType } from "~/types/publication_type";
 
 // install store
 const gupStore = useGupDataStore();
@@ -44,13 +68,15 @@ const { publication } = storeToRefs(gupStore);
 const { publicationType } = storeToRefs(gupStore);
 const { fetchPublicationType } = gupStore;
 
-if (publication.value.publication_type_id !== null) {
-  await fetchPublicationType(publication.value.publication_type_id);
+if (
+  publication.value?.publication_type_id !== null &&
+  publication.value?.publication_type_id !== undefined
+) {
+  await fetchPublicationType(publication?.value?.publication_type_id);
 }
 
 const publicationTypeSchema = computed(() => {
-  console.log(publicationType.value.schema);
-  return publicationType.value.schema;
+  return publicationType?.value?.schema;
 });
 </script>
 
