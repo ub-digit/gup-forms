@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
   const id = Number(event?.context?.params?.id);
   const data = await import("../store/publication_types.json");
 
-  let publicationType: PublicationType = data.default.find(
+  let publicationType: PublicationType | undefined = data.default.find(
     (itemType) => itemType?.id === id
   );
 
