@@ -1,5 +1,4 @@
 import { z } from "zod";
-import Id from "~/pages/publication/[id].vue";
 
 export const zDepartment = z.object({
   id: z.number(),
